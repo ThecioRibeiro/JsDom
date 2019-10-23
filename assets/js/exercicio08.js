@@ -23,6 +23,7 @@ function calcularSalarioLiquido() {
   vendedor.salarioBruto = calcularSalarioBruto(vendedor.salarioBase, vendedor.totalDeVendasNoMes);
   console.log('bruto ' + vendedor.salarioBruto);
   encargos.inss = calcularInss(vendedor.salarioBruto);
+  encargos.irrf = calcularIrrf(vendedor.salarioBruto - encargos.inss);
   console.log(encargos);
 }
 
@@ -45,17 +46,23 @@ function calcularInss(salario) {
 }
 
 
-function calcularIrrf(){
+function calcularIrrf(baseIrrf){
   const PISO_1 = 1903.99;
   const PISO_2 = 2826.65; 
   const PISO_3 = 3751.05; 
   const PISO_4 = 4664.68;
     
 
-  if (condition) {
-    
-  } else {
-    
+  if (baseIrrf < PISO_1) {
+    return 0; 
+  } else if (baseIrrf <= PISO_2) {
+    return baseIrrf * 0.075;
+  } else if (baseIrrf <= PISO_3){
+    return baseIrrf * 0.15;
+  } else if (baseIrrf <= PISO_4){
+    return baseIrrf * 0.22;
+  } else{
+    return baseIrrf * 27.5;
   }
 }
 
